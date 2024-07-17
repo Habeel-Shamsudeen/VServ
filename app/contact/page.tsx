@@ -1,5 +1,5 @@
-import { AppbarLanding } from "@/components/appbar-landing";
-import { ContactPage } from "@/components/contact-page";
+import { AppbarLanding } from "@/components/shared/appbar-landing";
+import { ContactPage } from "@/components/shared/contact-page";
 
 export default function Contact(){
     return (

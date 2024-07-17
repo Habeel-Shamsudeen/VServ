@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { AppbarLanding } from "@/components/appbar-landing";
-import { LandingPage } from "@/components/landing-page";
+import { AppbarLanding } from "@/components/shared/appbar-landing";
+import { LandingPage } from "@/components/shared/landing-page";
 
 export default function Home() {
   return (
