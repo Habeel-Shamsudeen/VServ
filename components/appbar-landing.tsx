@@ -35,9 +35,9 @@ export function AppbarLanding() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem>Admin</DropdownMenuItem>
-            <DropdownMenuItem>Mechanic</DropdownMenuItem>
-            <DropdownMenuItem>Customer</DropdownMenuItem>
+            <DropdownMenuItem><Link href={'/auth/admin/signin'}>Admin</Link></DropdownMenuItem>
+            <DropdownMenuItem><Link href={'/auth/mechanic/signin'}>Mechanic</Link></DropdownMenuItem>
+            <DropdownMenuItem><Link href={'/auth/customer/signup'}>Customer</Link></DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
         <Sheet>

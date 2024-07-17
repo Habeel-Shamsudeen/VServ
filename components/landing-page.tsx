@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { CarouselPlugin } from "./carousel-plugin";
 
 export function LandingPage() {
@@ -21,7 +20,7 @@ export function LandingPage() {
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
                   <Link
-                    href="#"
+                    href="/auth/customer/signup"
                     className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                     prefetch={false}
                   >
@@ -100,7 +99,7 @@ export function LandingPage() {
                   </li>
                 </ul>
                 <Link
-                href="/"
+                href="/auth/customer/signup"
                 className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                 prefetch={false}
               >
@@ -126,7 +125,7 @@ export function LandingPage() {
                 date and time, and we'll take care of the rest.
               </p>
               <Link
-                href="#"
+                href="auth/customer/login"
                 className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                 prefetch={false}
               >
@@ -235,7 +234,7 @@ export function LandingPage() {
             </div>
             <div className="mx-auto w-full max-w-sm space-y-2">
               <form className="flex justify-center">
-                <Button>Sign Up</Button>
+                <Link href={"/auth/customer/signup"} className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">Sign Up</Link>
               </form>
               <p className="text-xs text-muted-foreground">
                 By signing up, you agree to our{" "}
