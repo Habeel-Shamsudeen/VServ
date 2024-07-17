@@ -1,0 +1,65 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// prisma/schema.prisma
+
+model User {
+  id        Int       @id @default(autoincrement())
+  name      String
+  email     String    @unique
+  password  String
+  phno      String
+  role      Role
+  customer  Customer?
+  mechanic  Mechanic?
+}
+
+model Customer {
+  id        Int       @id @default(autoincrement())
+  street    String
+  city      String
+  userId    Int       @unique
+  user      User      @relation(fields: [userId], references: [id])
+  services  Service[]
+}
+
+model Mechanic {
+  id        Int       @id @default(autoincrement())
+  userId    Int       @unique
+  user      User      @relation(fields: [userId], references: [id])
+  services  Service[]
+}
+
+model Service {
+  id          Int            @id @default(autoincrement())
+  description String
+  status      ServiceStatus  @default(PENDING)
+  scheduledAt DateTime?
+  completedAt DateTime?
+  customerId  Int
+  mechanicId  Int?
+  customer    Customer       @relation(fields: [customerId], references: [id])
+  mechanic    Mechanic?      @relation(fields: [mechanicId], references: [id])
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+enum Role {
+  ADMIN
+  CUSTOMER
+  MECHANIC
+}
+
+enum ServiceStatus {
+  PENDING
+  ASSIGNED
+  COMPLETED
+}
+

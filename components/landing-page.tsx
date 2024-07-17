@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { CarouselPlugin } from "./carousel-plugin";
 
 export function LandingPage() {
   return (
     <div className="flex flex-col min-h-[100dvh]">
       <main className="flex-1">
-        <section className="w-full py-12 md:py-20 lg:py-28 xl:py-36" id="home">
+        <section className="w-full py-24 md:py-24 lg:py-28 xl:py-36" id="home">
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
               <div className="flex flex-col justify-center space-y-4">
@@ -36,11 +37,11 @@ export function LandingPage() {
                 </div>
               </div>
               <img
-                src="/placeholder.svg"
+                src="/trust2.jpg"
                 width="550"
                 height="550"
                 alt="Hero"
-                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last lg:aspect-square"
+                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-first lg:aspect-square"
               />
             </div>
           </div>
@@ -98,14 +99,15 @@ export function LandingPage() {
                     </div>
                   </li>
                 </ul>
+                <Link
+                href="/"
+                className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                prefetch={false}
+              >
+                Get Started
+              </Link>
               </div>
-              <img
-                src="/placeholder.svg"
-                width="550"
-                height="310"
-                alt="Services"
-                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
-              />
+              <CarouselPlugin/>
             </div>
           </div>
         </section>
@@ -132,7 +134,7 @@ export function LandingPage() {
               </Link>
             </div>
             <img
-              src="/placeholder.svg"
+              src="/trust.jpg"
               width="550"
               height="310"
               alt="Scheduling"
@@ -143,11 +145,11 @@ export function LandingPage() {
         <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
           <div className="container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
             <img
-              src="/placeholder.svg"
+              src="/schedule.jpg"
               width="550"
               height="310"
               alt="Status"
-              className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
+              className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-first"
             />
             <div className="space-y-2">
               <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
@@ -161,13 +163,6 @@ export function LandingPage() {
                 Track the progress of your repair and receive notifications when
                 your car is ready for pickup.
               </p>
-              <Link
-                href="#"
-                className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                prefetch={false}
-              >
-                Check Status
-              </Link>
             </div>
           </div>
         </section>
@@ -188,7 +183,7 @@ export function LandingPage() {
               </p>
             </div>
             <img
-              src="/placeholder.svg"
+              src="/satisfaction.jpg"
               width="550"
               height="310"
               alt="About"
@@ -219,11 +214,11 @@ export function LandingPage() {
               </Link>
             </div>
             <img
-              src="/placeholder.svg"
+              src="/team.jpg"
               width="550"
               height="310"
               alt="Contact"
-              className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
+              className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-first"
             />
           </div>
         </section>
@@ -245,9 +240,10 @@ export function LandingPage() {
               <p className="text-xs text-muted-foreground">
                 By signing up, you agree to our{" "}
                 <Link
-                  href="#"
+                  href="https://www.termsfeed.com/legal/privacy-policy/"
                   className="underline underline-offset-2"
                   prefetch={false}
+                  target="_blank"
                 >
                   Terms &amp; Conditions
                 </Link>
@@ -278,7 +274,7 @@ export function LandingPage() {
             Terms of Service
           </Link>
           <Link
-            href="#"
+            href="/contact"
             className="text-xs hover:underline underline-offset-4"
             prefetch={false}
           >

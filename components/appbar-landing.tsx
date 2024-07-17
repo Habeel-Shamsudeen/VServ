@@ -6,7 +6,7 @@ import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"
 
 export function AppbarLanding() {
   return (
-    <header className="flex h-16 w-full items-center justify-between bg-background border-b-2 border-slate-50 px-4 md:px-6 fixed top-0">
+    <header className="flex h-16 w-full items-center justify-between bg-background border-b-2 border-slate-50 px-4 md:px-6 fixed top-0 z-50">
       <div className="flex items-center gap-2">
         <Link href="/#home" className="flex items-center gap-2 " prefetch={false}>
           <RepairIcon className="h-6 w-6" />
