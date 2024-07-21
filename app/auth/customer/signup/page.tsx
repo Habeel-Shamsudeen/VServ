@@ -1,4 +1,4 @@
-import CustomerSignupForm from "@/components/CustomerSignUp";
+import CustomerSignupForm from "@/components/customer/CustomerSignUp";
 import Quote from "@/components/shared/Quote";
 import RepairIcon from "@/components/ui/RepairIcon";
 import Link from "next/link";
