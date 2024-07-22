@@ -10,8 +10,7 @@ export default function CustomerSignupForm() {
     name: "",
     email: "",
     password: "",
-    street: "",
-    city: "",
+    address: "",
     phno: "",
   });
   return (
@@ -59,22 +58,13 @@ export default function CustomerSignupForm() {
                 }))
             }}/>
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="street">Street Address</Label>
-          <Input id="street" placeholder="123 Main St" required onChange={(e)=>{
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+          <Label htmlFor="address"> Address</Label>
+          <Input id="address" placeholder="123 Main St" required onChange={(e)=>{
                 setCustomer((c)=>({
                     ...c,
                     street:e.target.value
-                }))
-            }}/>
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <Label htmlFor="city">City</Label>
-            <Input id="city" placeholder="New York" required onChange={(e)=>{
-                setCustomer((c)=>({
-                    ...c,
-                    city:e.target.value
                 }))
             }}/>
           </div>

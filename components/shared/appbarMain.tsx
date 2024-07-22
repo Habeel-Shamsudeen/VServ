@@ -1,3 +1,4 @@
+'use client'
 import Link from "next/link";
 import {
   DropdownMenu,
@@ -10,12 +11,16 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import RepairIcon from "../ui/RepairIcon";
 import SidebarButton from "../ui/sidebarbutton";
 import { CarIcon, LogOutIcon, UserIcon } from "../ui/Icons";
+import { usePathname } from "next/navigation";
 
 export default function Appbar({
   type,
 }: {
   type: "landing" | "user" | "mechanic" | "admin";
 }) {
+  const pathName = usePathname();
+  const patharr=pathName.split('/');
+
   return (
     <header className="bg-background border-b px-4 py-4 flex items-center justify-between shrink-0 md:px-6 md:py-4">
           <div className="flex items-center gap-4">
@@ -32,7 +37,9 @@ export default function Appbar({
           <CarIcon className="h-7 w-7" />
           <span className="text-xl font-bold hidden sm:block">Vehicle Service</span>
         </Link>
+        
       </div>
+      <span className="text-md font-semibold sm:block">{patharr[2]===undefined?"Home":patharr[2]}</span>
       </div>
       <div className="flex gap-1">
         <span className="flex items-center mx-3 text-md font-medium">Welcome, user</span>

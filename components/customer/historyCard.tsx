@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { ClipboardListIcon } from "../ui/Icons";
 
 export default function HistoryCard(){
     return <div className="border rounded-lg h-72 overflow-hidden">

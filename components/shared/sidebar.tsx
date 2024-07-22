@@ -3,8 +3,6 @@ import {
   CarIcon,
   ClipboardListIcon,
   HomeIcon,
-  PlusIcon,
-  WrenchIcon,
 } from "@/components/ui/Icons";
 import Link from "next/link";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
@@ -18,7 +16,7 @@ export default function Sidebar({type}:{type:'user' | 'admin' | 'mechanic'}) {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <div className="bg-muted border-b h-screen md:border r px-4 py-6 flex-col gap-6 md:px-4 md:py-6 hidden md:flex min-w-52">
+        <div className="bg-muted border-b min-h-screen h-full md:border r px-4 py-6 flex-col gap-6 md:px-4 md:py-6 hidden md:flex min-w-52">
           <div className="flex items-center justify-between">
             <Link
               href={`/`}
