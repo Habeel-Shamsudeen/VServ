@@ -32,7 +32,7 @@ export default function Sidebar({type}:{type:'user' | 'admin' | 'mechanic'}) {
           <nav className="flex flex-col gap-3 mt-3">
           {typeArr.map((item) => (
               <Link
-                href={`/${type}/${item}`}
+                href={item==='home'?`/${type}/`:`/${type}/${item}`}
                 className="flex items-center gap-2 rounded-md px-3 py-2 hover:bg-green-300 hover:text-accent-foreground"
                 prefetch={false}
                 key={item}

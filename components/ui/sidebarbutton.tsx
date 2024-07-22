@@ -8,7 +8,7 @@ export default function SidebarButton({
   type: "landing" | "user" | "mechanic" | "admin";
 }) {
   const landing: string[] = ["service", "about", "contact"];
-  const user: string[] = ["", "history", "services", "vehicle"];
+  const user: string[] = ["home", "history", "services", "vehicle"];
   let typeArr: string[] = [];
   if (type === "landing") typeArr = landing;
   if (type === "user") typeArr = user;
@@ -33,7 +33,7 @@ export default function SidebarButton({
             </Link>
             {typeArr.map((item) => (
               <Link
-                href={type === "landing" ? `#${item}` : `/${type}/${item}`}
+                href={type === "landing" ? `#${item}` :item==='home'?`/${type}/`:`/${type}/${item}`}
                 className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 prefetch={false}
                 key={item}

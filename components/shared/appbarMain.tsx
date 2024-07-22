@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import RepairIcon from "../ui/RepairIcon";
 import SidebarButton from "../ui/sidebarbutton";
-import { LogOutIcon, UserIcon } from "../ui/Icons";
+import { CarIcon, LogOutIcon, UserIcon } from "../ui/Icons";
 
 export default function Appbar({
   type,
@@ -27,11 +27,15 @@ export default function Appbar({
             <RepairIcon/>
         <span className="text-xl font-semibold hidden sm:block">VSMS</span>
         </Link>
-        <div className="hidden md:block text-xl font-semibold">
-            {type.toUpperCase() + ' Dashboard'}
-        </div>
+        <div className="items-center gap-2 hidden md:block">
+        <Link href="/#home" className="flex items-center gap-2 " prefetch={false}>
+          <CarIcon className="h-7 w-7" />
+          <span className="text-xl font-bold hidden sm:block">Vehicle Service</span>
+        </Link>
+      </div>
       </div>
       <div className="flex gap-1">
+        <span className="flex items-center mx-3 text-md font-medium">Welcome, user</span>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="rounded-full border-2">
