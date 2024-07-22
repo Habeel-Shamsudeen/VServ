@@ -27,8 +27,8 @@ export default function Appbar({
             <RepairIcon/>
         <span className="text-xl font-semibold hidden sm:block">VSMS</span>
         </Link>
-        <div className="hidden md:block">
-            Customer
+        <div className="hidden md:block text-xl font-semibold">
+            {type.toUpperCase() + ' Dashboard'}
         </div>
       </div>
       <div className="flex gap-1">
