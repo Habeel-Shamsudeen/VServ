@@ -44,9 +44,11 @@ export default function SigninForm({type}:{type:"admin" | "employee" | "customer
                 }))
             }}/>
         </div>
+        <Link href={'/user/'}>
         <Button type="submit" className="w-full">
           Log In
         </Button>
+        </Link>
       </form>
       <div className="text-slate-500 text-center">
         
