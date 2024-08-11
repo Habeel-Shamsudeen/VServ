@@ -33,7 +33,7 @@ export default function Appbar({
         <span className="text-xl font-semibold hidden sm:block">VSMS</span>
         </Link>
         <div className="items-center gap-2 hidden md:block">
-        <Link href="/#home" className="flex items-center gap-2 " prefetch={false}>
+        <Link href={`/${type}`} className="flex items-center gap-2 " prefetch={false}>
           <CarIcon className="h-7 w-7" />
           <span className="text-xl font-bold hidden sm:block">Vehicle Service</span>
         </Link>

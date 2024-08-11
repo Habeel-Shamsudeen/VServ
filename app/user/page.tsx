@@ -5,7 +5,7 @@ import VehicleCard from "@/components/customer/vehicleCard";
 
 export default function UserHome() {
   return (
-    <div className="grid gap-10 md:grid-cols-2">
+    <div className="grid gap-10 lg:grid-cols-2">
       <VehicleCard />
       <CurrService />
       <HistoryCard />

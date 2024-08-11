@@ -19,8 +19,8 @@ export default function SigninForm({type}:{type:"admin" | "employee" | "customer
           {type==='customer'?'Login to start using our amazing services.':`Enter your ${type} credentials`}
         </p>
       </div>
-      <form className="space-y-4">
-          <div className="space-y-2">
+      <form className="space-y-2 flex flex-col gap-2">
+          <div>
             <Label htmlFor="email">Email</Label>
             <Input
               id="email"
@@ -35,7 +35,7 @@ export default function SigninForm({type}:{type:"admin" | "employee" | "customer
             }}
             />
           </div>
-        <div className="space-y-2">
+        <div>
           <Label htmlFor="password">Password</Label>
           <Input id="password" type="password" required onChange={(e)=>{
                 setSigninInputs((c)=>({
@@ -50,16 +50,16 @@ export default function SigninForm({type}:{type:"admin" | "employee" | "customer
         </Button>
         </Link>
       </form>
-      <div className="text-slate-500 text-center">
+      {type!=="admin"?(<div className="text-slate-500 text-center">
         
-            Don't have an account?
-            <Link
-              className="pl-1 underline"
-              href={'/auth/customer/signup'}
-            >
-                Signup
-            </Link>
-          </div>
+        Don't have an account?
+        <Link
+          className="pl-1 underline"
+          href={'/auth/customer/signup'}
+        >
+            Signup
+        </Link>
+      </div>):''}
     </div>
     </div>
   );

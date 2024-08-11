@@ -1,4 +1,4 @@
-import { HistoryTable } from "@/components/history-table";
+import { HistoryTable } from "@/components/customer/history-table";
 export default function HistoryPageCustomer() {
   return (
     <div>
