@@ -4,6 +4,7 @@ import RepairIcon from "@/components/ui/RepairIcon";
 import Link from "next/link";
 
 export default function CustomerSignupPage() {
+  
   return (
     <div>
       <div className="flex items-center gap-2 p-3 md:bg-slate-100 w-1/2">

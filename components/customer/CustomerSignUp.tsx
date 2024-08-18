@@ -1,10 +1,13 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import Link from "next/link";
 import { useState } from "react";
-
+import axios from 'axios';
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast"
 export default function CustomerSignupForm() {
   const [customer, setCustomer] = useState({
     name: "",
@@ -13,6 +16,38 @@ export default function CustomerSignupForm() {
     address: "",
     phno: "",
   });
+  const router = useRouter();
+  const { toast } = useToast()
+
+  const onClickHandler = async (event:any) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:3000/api/auth/customer/signup", {
+        customer
+      });
+
+      if (response.data.status === 'success') {
+        toast({
+          title:response.data.msg,
+          description:"Please SignIn to Continue"
+        })
+        router.push("/auth/customer/signin");
+      } else {
+        toast({
+          title:response.data.msg,
+          description:"Please Try Again",
+        })
+      }
+    } catch (error) {
+      console.error("An error occurred during sign up:", error);
+      toast({
+        title:"An error occurred during sign up",
+        description:"Please try again",
+        variant:'destructive'
+      })
+    }
+  };
+
   return (
     <div className="h-screen flex flex-col justify-center items-center">
       <div className="space-y-6 rounded-xl p-10 py-24">
@@ -22,7 +57,7 @@ export default function CustomerSignupForm() {
             Sign up to start using our amazing products and services.
           </p>
         </div>
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={onClickHandler}>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="name">Name</Label>
@@ -30,12 +65,10 @@ export default function CustomerSignupForm() {
                 id="name"
                 placeholder="John Doe"
                 required
-                onChange={(e) => {
-                  setCustomer((c) => ({
-                    ...c,
-                    name: e.target.value,
-                  }));
-                }}
+                onChange={(e) => setCustomer((c) => ({
+                  ...c,
+                  name: e.target.value,
+                }))}
               />
             </div>
             <div className="space-y-2">
@@ -45,12 +78,10 @@ export default function CustomerSignupForm() {
                 type="email"
                 placeholder="example@gmail.com"
                 required
-                onChange={(e) => {
-                  setCustomer((c) => ({
-                    ...c,
-                    email: e.target.value,
-                  }));
-                }}
+                onChange={(e) => setCustomer((c) => ({
+                  ...c,
+                  email: e.target.value,
+                }))}
               />
             </div>
           </div>
@@ -60,27 +91,23 @@ export default function CustomerSignupForm() {
               id="password"
               type="password"
               required
-              onChange={(e) => {
-                setCustomer((c) => ({
-                  ...c,
-                  password: e.target.value,
-                }));
-              }}
+              onChange={(e) => setCustomer((c) => ({
+                ...c,
+                password: e.target.value,
+              }))}
             />
           </div>
           <div className="grid grid-cols-2 gap-4 mb-3">
             <div className="space-y-2">
-              <Label htmlFor="address"> Address</Label>
+              <Label htmlFor="address">Address</Label>
               <Input
                 id="address"
                 placeholder="123 Main St"
                 required
-                onChange={(e) => {
-                  setCustomer((c) => ({
-                    ...c,
-                    street: e.target.value,
-                  }));
-                }}
+                onChange={(e) => setCustomer((c) => ({
+                  ...c,
+                  address: e.target.value,
+                }))}
               />
             </div>
             <div className="space-y-2">
@@ -90,22 +117,16 @@ export default function CustomerSignupForm() {
                 type="tel"
                 placeholder="+91 5555-555555"
                 required
-                onChange={(e) => {
-                  setCustomer((c) => ({
-                    ...c,
-                    phno: e.target.value,
-                  }));
-                }}
+                onChange={(e) => setCustomer((c) => ({
+                  ...c,
+                  phno: e.target.value,
+                }))}
               />
             </div>
           </div>
-          
-            <Button type="submit" className="w-full">
-            <Link href={"/user/"}>
-              Sign Up
-              </Link>
-            </Button>
-          
+          <Button type="submit" className="w-full">
+            Sign Up
+          </Button>
         </form>
         <div className="text-slate-500 text-center">
           Already have an account?
