@@ -4,12 +4,44 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import Link from "next/link";
 import { useState } from "react";
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useToast } from "../ui/use-toast";
 
 export default function SigninForm({type}:{type:"admin" | "employee" | "customer"}) {
+  const { toast } = useToast();
   const [signinInputs, setSigninInputs] = useState({
     email: "",
     password: "",
   });
+  const router = useRouter();
+
+  const handleSignIn = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const email = signinInputs.email;
+    const password = signinInputs.password;
+
+    const result = await signIn('credentials', {
+      redirect: false,
+      email,
+      password,
+      role: 'CUSTOMER',
+    });
+    console.log(result);
+    if (result?.ok) {
+      toast({
+        title:"SignIn Successfull"
+      })
+      router.push('/user/'); // Redirect to a protected page after successful sign-in
+    } else {
+      toast({
+        title:"Invalid Credentials",
+        description:"Please Try again"
+      })
+      alert("sdafsd")
+      console.error(result?.error);
+    }
+  };
   return (
     <div className="h-screen flex flex-col justify-center items-center min-w-2xl">
         <div className="space-y-6 rounded-xl p-10 py-24">
@@ -19,7 +51,7 @@ export default function SigninForm({type}:{type:"admin" | "employee" | "customer
           {type==='customer'?'Login to start using our amazing services.':`Enter your ${type} credentials`}
         </p>
       </div>
-      <form className="space-y-2 flex flex-col gap-2">
+      <form className="space-y-2 flex flex-col gap-2" onSubmit={handleSignIn}>
           <div>
             <Label htmlFor="email">Email</Label>
             <Input
@@ -44,11 +76,9 @@ export default function SigninForm({type}:{type:"admin" | "employee" | "customer
                 }))
             }}/>
         </div>
-        <Link href={'/user/'}>
         <Button type="submit" className="w-full">
           Log In
         </Button>
-        </Link>
       </form>
       {type!=="admin"?(<div className="text-slate-500 text-center">
         

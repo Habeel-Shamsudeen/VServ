@@ -5,9 +5,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import Link from "next/link";
 import { useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast"
+import { useToast } from "@/components/ui/use-toast";
 export default function CustomerSignupForm() {
   const [customer, setCustomer] = useState({
     name: "",
@@ -17,34 +17,44 @@ export default function CustomerSignupForm() {
     phno: "",
   });
   const router = useRouter();
-  const { toast } = useToast()
+  const { toast } = useToast();
 
-  const onClickHandler = async (event:any) => {
+  const onClickHandler = async (event: any) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/api/auth/customer/signup", {
-        customer
-      });
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/customer/signup",
+        {
+          customer,
+        }
+      );
 
-      if (response.data.status === 'success') {
+      if (response.data.status === "success") {
         toast({
-          title:response.data.msg,
-          description:"Please SignIn to Continue"
-        })
+          title: response.data.msg,
+          description: "Please SignIn to Continue",
+        });
         router.push("/auth/customer/signin");
       } else {
+        setCustomer(() => ({
+          name: "",
+          email: "",
+          password: "",
+          address: "",
+          phno: "",
+        }));
         toast({
-          title:response.data.msg,
-          description:"Please Try Again",
-        })
+          title: response.data.msg,
+          description: "Please Try Again",
+        });
       }
     } catch (error) {
       console.error("An error occurred during sign up:", error);
       toast({
-        title:"An error occurred during sign up",
-        description:"Please try again",
-        variant:'destructive'
-      })
+        title: "An error occurred during sign up",
+        description: "Please try again",
+        variant: "destructive",
+      });
     }
   };
 
@@ -65,10 +75,13 @@ export default function CustomerSignupForm() {
                 id="name"
                 placeholder="John Doe"
                 required
-                onChange={(e) => setCustomer((c) => ({
-                  ...c,
-                  name: e.target.value,
-                }))}
+                onChange={(e) =>
+                  setCustomer((c) => ({
+                    ...c,
+                    name: e.target.value,
+                  }))
+                }
+                value={customer.name}
               />
             </div>
             <div className="space-y-2">
@@ -78,10 +91,13 @@ export default function CustomerSignupForm() {
                 type="email"
                 placeholder="example@gmail.com"
                 required
-                onChange={(e) => setCustomer((c) => ({
-                  ...c,
-                  email: e.target.value,
-                }))}
+                onChange={(e) =>
+                  setCustomer((c) => ({
+                    ...c,
+                    email: e.target.value,
+                  }))
+                }
+                value={customer.email}
               />
             </div>
           </div>
@@ -91,10 +107,13 @@ export default function CustomerSignupForm() {
               id="password"
               type="password"
               required
-              onChange={(e) => setCustomer((c) => ({
-                ...c,
-                password: e.target.value,
-              }))}
+              onChange={(e) =>
+                setCustomer((c) => ({
+                  ...c,
+                  password: e.target.value,
+                }))
+              }
+              value={customer.password}
             />
           </div>
           <div className="grid grid-cols-2 gap-4 mb-3">
@@ -104,10 +123,12 @@ export default function CustomerSignupForm() {
                 id="address"
                 placeholder="123 Main St"
                 required
-                onChange={(e) => setCustomer((c) => ({
-                  ...c,
-                  address: e.target.value,
-                }))}
+                onChange={(e) =>
+                  setCustomer((c) => ({
+                    ...c,
+                    address: e.target.value,
+                  }))
+                }
               />
             </div>
             <div className="space-y-2">
@@ -117,10 +138,12 @@ export default function CustomerSignupForm() {
                 type="tel"
                 placeholder="+91 5555-555555"
                 required
-                onChange={(e) => setCustomer((c) => ({
-                  ...c,
-                  phno: e.target.value,
-                }))}
+                onChange={(e) =>
+                  setCustomer((c) => ({
+                    ...c,
+                    phno: e.target.value,
+                  }))
+                }
               />
             </div>
           </div>

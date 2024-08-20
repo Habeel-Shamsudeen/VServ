@@ -12,14 +12,23 @@ import RepairIcon from "../ui/RepairIcon";
 import SidebarButton from "../ui/sidebarbutton";
 import { CarIcon, LogOutIcon, UserIcon } from "../ui/Icons";
 import { usePathname } from "next/navigation";
+import { signOut } from "next-auth/react";
+import { useToast } from "../ui/use-toast";
 
 export default function Appbar({
   type,
 }: {
   type: "landing" | "user" | "mechanic" | "admin";
 }) {
+  const { toast } = useToast();
   const pathName = usePathname();
   const patharr=pathName.split('/');
+  const handleSignOut = async () =>{
+    await signOut({ callbackUrl: '/auth/customer/signin' });
+    toast({
+      title:"Signed Out successfully"
+    })
+  }
 
   return (
     <header className="bg-background border-b px-4 py-4 flex items-center justify-between shrink-0 md:px-6 md:py-4">
@@ -70,7 +79,7 @@ export default function Appbar({
                 prefetch={false}
               >
                 <LogOutIcon className="h-4 w-4" />
-                <span>Logout</span>
+                <span onClick={handleSignOut}>Logout</span>
               </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
