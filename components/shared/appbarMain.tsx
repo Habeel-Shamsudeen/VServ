@@ -12,7 +12,7 @@ import RepairIcon from "../ui/RepairIcon";
 import SidebarButton from "../ui/sidebarbutton";
 import { CarIcon, LogOutIcon, UserIcon } from "../ui/Icons";
 import { usePathname } from "next/navigation";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useToast } from "../ui/use-toast";
 
 export default function Appbar({
@@ -23,8 +23,13 @@ export default function Appbar({
   const { toast } = useToast();
   const pathName = usePathname();
   const patharr=pathName.split('/');
+  const {data:session, status} = useSession();
+  let userName = 'User'
+  if(status==='authenticated'){
+    userName = session.user.name?.split(' ')[0];
+  }
   const handleSignOut = async () =>{
-    await signOut({ callbackUrl: '/auth/customer/signin' });
+    await signOut({ callbackUrl: '/' });
     toast({
       title:"Signed Out successfully"
     })
@@ -51,13 +56,13 @@ export default function Appbar({
       <span className="text-md font-semibold sm:block">{patharr[2]===undefined?"Home":patharr[2]}</span>
       </div>
       <div className="flex gap-1">
-        <span className="flex items-center mx-3 text-md font-medium">Welcome, user</span>
+      <span className="flex items-center mx-3 text-md font-medium">Welcome {userName}</span>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="rounded-full border-2">
               <Avatar className="h-10 w-10 bg-[#333] border-2 hover:border-primary rounded-full">
                 <AvatarImage src="/placeholder-user.jpg" />
-                <AvatarFallback>AC</AvatarFallback>
+                <AvatarFallback>{userName || 'A'}</AvatarFallback>
               </Avatar>
             </Button>
           </DropdownMenuTrigger>

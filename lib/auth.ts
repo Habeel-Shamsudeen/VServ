@@ -2,6 +2,7 @@ import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import client from '../db'
 interface User {
+    name: string
     id: number;
     email: string;
     role: string;
@@ -34,6 +35,7 @@ const authOptions: NextAuthOptions = {
                 id: existingUser.id,
                 email: existingUser.email,
                 role: existingUser.role,
+                name: existingUser.name
               };
           }
           return null;
@@ -51,7 +53,9 @@ const authOptions: NextAuthOptions = {
       token,
     }: any) {
       if (token) {
-        session.user = token
+        session.user.id = token.id as string;
+        session.user.email = token.email as string;
+        session.user.role = token.role as string;
       }
       return session;
     },
@@ -66,6 +70,7 @@ const authOptions: NextAuthOptions = {
         token.id = user.id;
         token.email = user.email;
         token.role = user.role;
+        token.name = user.name
       }
       return token;
     },
