@@ -38,7 +38,6 @@ export default function SigninForm({type}:{type:"admin" | "employee" | "customer
         title:"Invalid Credentials",
         description:"Please Try again"
       })
-      alert("sdafsd")
       console.error(result?.error);
     }
   };

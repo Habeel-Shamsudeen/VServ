@@ -14,12 +14,17 @@ import { CarIcon, LogOutIcon, UserIcon } from "../ui/Icons";
 import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import { useToast } from "../ui/use-toast";
+import { useResetRecoilState } from 'recoil';
+import { customerState, servicesState, vehiclesState } from "@/recoil/atoms";
 
 export default function Appbar({
   type,
 }: {
   type: "landing" | "user" | "mechanic" | "admin";
 }) {
+const resetCustomer = useResetRecoilState(customerState);
+const resetServices = useResetRecoilState(servicesState);
+const resetVehicles = useResetRecoilState(vehiclesState);
   const { toast } = useToast();
   const pathName = usePathname();
   const patharr=pathName.split('/');
@@ -30,6 +35,9 @@ export default function Appbar({
   }
   const handleSignOut = async () =>{
     await signOut({ callbackUrl: '/' });
+    resetCustomer();
+    resetServices();
+    resetVehicles();
     toast({
       title:"Signed Out successfully"
     })
