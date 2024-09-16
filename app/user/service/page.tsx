@@ -9,11 +9,11 @@ export default function CustomerService() {
     <div className="grid gap-8 lg:grid-cols-2">
       <div className="flex flex-col gap-5">
         <ServiceReq />
-        <StatusCard />
+        <VehicleCard />
         <CurrService />
       </div>
       <div className="flex flex-col gap-5">
-        <VehicleCard />
+        <StatusCard />
         <HistoryTable />
       </div>
       <div></div>

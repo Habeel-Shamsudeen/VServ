@@ -4,29 +4,70 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { useToast } from "../ui/use-toast";
+import axios from "axios";
+import { useSetRecoilState } from "recoil";
+import { vehiclesState } from "@/recoil/atoms";
+
 
 interface VehicleForm {
-  customerId: string;
   make: string;
   model: string;
-  year: string;
+  year: number;
 }
 
-export default function AddVehicleForm({ customerId }: { customerId: string }) {
+export default function AddVehicleForm() {
   const [vehicle, setVehile] = useState<VehicleForm>({
-    customerId,
     make: "",
     model: "",
-    year: "",
+    year: 2024,
   });
-  const submitHandler = (vehicle: VehicleForm) => {
-    console.log(vehicle);
+  const setVehicle = useSetRecoilState(vehiclesState);
+  const { toast } = useToast();
+
+  const onClickHandler = async (event: any) => {
+    event.preventDefault();
+    try {
+      if(vehicle.make.length<=1 || vehicle.model.length<=1){
+        throw new Error('Invalid Model or Make length')
+      }
+      const response = await axios.post(
+        "http://localhost:3000/api/customer/vehicle",
+        {
+          vehicle,
+        }
+      );
+      if (response.data.status === "success") {
+        toast({
+          title: response.data.msg,
+        });
+        setVehicle((c)=>[...c,response.data.vehicle])
+      } else {
+        toast({
+          title: response.data.msg,
+          description: "Please Try Again",
+        });
+      }
+      setVehile(() => ({
+        make: "",
+        model: "",
+        year: 2024,
+      }));
+    } catch (error) {
+      console.error("An error occurred:", error);
+      toast({
+        title: `An error occurred`,
+        description: `${error}`,
+        variant: "destructive",
+      });
+    }
   };
   return (
     <div className="border rounded-lg p-4">
       <h1 className="text-2xl font-bold mb-4">Add new vehicle</h1>
       <Card className="">
         <CardContent>
+          <form onSubmit={onClickHandler}>
           <div className="flex flex-col gap-2">
             <div>
               <Label htmlFor="vehicle">Make</Label>
@@ -37,6 +78,7 @@ export default function AddVehicleForm({ customerId }: { customerId: string }) {
                     make: e.target.value,
                   }))
                 }
+                value={vehicle.make}
                 required
               />
             </div>
@@ -49,6 +91,7 @@ export default function AddVehicleForm({ customerId }: { customerId: string }) {
                     model: e.target.value,
                   }))
                 }
+                value={vehicle.model}
                 required
               />
             </div>
@@ -60,9 +103,10 @@ export default function AddVehicleForm({ customerId }: { customerId: string }) {
                   onChange={(e) =>
                     setVehile((c) => ({
                       ...c,
-                      year: e.target.value,
+                      year: parseInt(e.target.value),
                     }))
                   }
+                  value={vehicle.year}
                   required
                 />
               </div>
@@ -70,11 +114,12 @@ export default function AddVehicleForm({ customerId }: { customerId: string }) {
             <Button
               size="lg"
               className="w-full"
-              onClick={() => submitHandler(vehicle)}
+              type="submit"
             >
               Add Vehicle
             </Button>
           </div>
+          </form>
         </CardContent>
       </Card>
     </div>

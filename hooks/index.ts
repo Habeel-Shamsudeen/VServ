@@ -2,76 +2,30 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { customerState, servicesState, vehiclesState } from '../recoil/atoms';
-import { Customer, Service, Vehicle } from '@/lib/types';
 
-// Hook to fetch and set customer data
-export const useCustomerData = () => {
+export const useInitializeUserData = () => {
   const [customer, setCustomer] = useRecoilState(customerState);
+  const [vehicles, setVehicles] = useRecoilState(vehiclesState);
+  const [services, setServices] = useRecoilState(servicesState);
 
   useEffect(() => {
-    const fetchCustomerData = async () => {
+    const fetchUserData = async () => {
       try {
-        const response = await fetch('/api/customer');
+        const response = await fetch('/api/customer'); 
         const data = await response.json();
 
         if (data?.customer) {
           setCustomer(data.customer);
+          setVehicles(data.customer.vehicles || []);
+          setServices(data.customer.services || []);
         }
       } catch (error) {
-        console.error('Error fetching customer data:', error);
+        console.error('Error fetching user data:', error);
       }
     };
 
-    fetchCustomerData();
-  }, [setCustomer]);
+    fetchUserData();
+  }, [setCustomer, setVehicles, setServices]);
 
-  return customer;
-};
-
-// Hook to fetch and set vehicle data
-export const useVehicleData = () => {
-  const [vehicles, setVehicles] = useRecoilState(vehiclesState);
-
-  useEffect(() => {
-    const fetchVehicleData = async () => {
-      try {
-        const response = await fetch('/api/customer'); // Same API if vehicle data is included
-        const data = await response.json();
-
-        if (data?.customer?.vehicles) {
-          setVehicles(data.customer.vehicles);
-        }
-      } catch (error) {
-        console.error('Error fetching vehicles data:', error);
-      }
-    };
-
-    fetchVehicleData();
-  }, [setVehicles]);
-
-  return vehicles;
-};
-
-// Hook to fetch and set services data
-export const useServiceData = () => {
-  const [services, setServices] = useRecoilState(servicesState);
-
-  useEffect(() => {
-    const fetchServiceData = async () => {
-      try {
-        const response = await fetch('/api/customer'); // Same API if service data is included
-        const data = await response.json();
-
-        if (data?.customer?.services) {
-          setServices(data.customer.services);
-        }
-      } catch (error) {
-        console.error('Error fetching services data:', error);
-      }
-    };
-
-    fetchServiceData();
-  }, [setServices]);
-
-  return services;
+  return { customer, vehicles, services };
 };
