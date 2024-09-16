@@ -11,34 +11,34 @@ export async function POST(req: NextRequest) {
   }
   const userId = parseInt(session.user.id);
   try {
-    const { vehicle } = await req.json();
-    const vehicleExist = await prisma.vehicle.findFirst({
+    const service = await req.json();
+    const ServiceExist = await prisma.service.findFirst({
         where:{
-            make:vehicle.make,
-            model:vehicle.model,
-            year:vehicle.year,
+            vehicleId:parseInt(service.vehicleId),
+            description:service.description,
             customerId:userId
         }
     })
-    if(vehicleExist){
+    if(ServiceExist){
         return NextResponse.json({
-            msg: "Vehicle already exist",
+            msg: "Service already exist",
             status:'failure'
           });
     }
-    const newVehicle = await prisma.vehicle.create({
+    const newService = await prisma.service.create({
         data:{
-            make:vehicle.make,
-            model:vehicle.model,
-            year:vehicle.year,
-            customerId:userId
+            vehicleId:parseInt(service.vehicleId),
+            description:service.description,
+            customerId:userId,
+            serviceType:service.serviceType,
+            scheduledAt:service.scheduledAt,
         }
     })
     return NextResponse.json(
         {
-          msg: "New vehicle added",
+          msg: "New service added",
           status:"success",
-          vehicle:newVehicle
+          service:newService
         },
         { status: 200 }
       );
@@ -60,22 +60,22 @@ export async function DELETE(req: NextRequest) {
 }
 const userId = parseInt(session.user.id);
 try {
-  const vehicleId  = headers().get('id')
-  const vehicleDelete = await prisma.vehicle.delete({
+  const serviceId  = headers().get('id')
+  const serviceDelete = await prisma.service.delete({
       where:{
-          id:parseInt(vehicleId || '-1'),
+          id:parseInt(serviceId || '-1'),
           customerId:userId
       }
   })
   return NextResponse.json(
       {
-        msg: "Vehicle Deleted",
+        msg: "Service Deleted",
         status:"success",
       },
       { status: 200 }
     );
 } catch (error) {
-  console.error("Error deleting vehicle:", error);
+  console.error("Error deleting service:", error);
   return NextResponse.json(
     {
       msg: "Internal server error",

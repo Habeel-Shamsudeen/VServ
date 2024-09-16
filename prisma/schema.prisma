@@ -40,27 +40,28 @@ model Vehicle {
   model      String
   year       Int
   customerId Int
-  customer   Customer  @relation(fields: [customerId], references: [id])
+  customer   Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade) // onDelete is defined here
   services   Service[]
 }
 
 model Service {
   id          Int            @id @default(autoincrement())
-  description String
+  description String?
   status      ServiceStatus  @default(PENDING)
   scheduledAt DateTime?
   completedAt DateTime?
   customerId  Int
   mechanicId  Int?
-  vehicleId   Int?
-  cost        Float
+  vehicleId   Int
+  cost        Float?
   serviceType ServiceType
-  customer    Customer       @relation(fields: [customerId], references: [id])
-  mechanic    Mechanic?      @relation(fields: [mechanicId], references: [id])
-  vehicle     Vehicle?       @relation(fields: [vehicleId], references: [id])
+  customer    Customer       @relation(fields: [customerId], references: [id], onDelete: Cascade) // onDelete here
+  mechanic    Mechanic?      @relation(fields: [mechanicId], references: [id], onDelete: SetNull)
+  vehicle     Vehicle        @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
 }
+
 
 enum Role {
   ADMIN

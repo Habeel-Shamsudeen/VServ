@@ -1,5 +1,5 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { customerState, servicesState, vehiclesState } from '../recoil/atoms';
 
@@ -7,6 +7,7 @@ export const useInitializeUserData = () => {
   const [customer, setCustomer] = useRecoilState(customerState);
   const [vehicles, setVehicles] = useRecoilState(vehiclesState);
   const [services, setServices] = useRecoilState(servicesState);
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -19,6 +20,7 @@ export const useInitializeUserData = () => {
           setVehicles(data.customer.vehicles || []);
           setServices(data.customer.services || []);
         }
+        setLoading(false)
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -27,5 +29,5 @@ export const useInitializeUserData = () => {
     fetchUserData();
   }, [setCustomer, setVehicles, setServices]);
 
-  return { customer, vehicles, services };
+  return { customer, vehicles, services, loading };
 };

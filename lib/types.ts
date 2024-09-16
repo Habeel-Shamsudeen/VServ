@@ -97,4 +97,31 @@ export enum ServiceType {
   GENERAL_MAINTENANCE = 'GENERAL_MAINTENANCE',
 }
 
+export const serviceStatusDetails = {
+  [ServiceStatus.PENDING]: {
+    percentage: 0,
+    description: 'Service has been requested but is not yet assigned.',
+  },
+  [ServiceStatus.ASSIGNED]: {
+    percentage: 20,
+    description: 'Service has been assigned to a mechanic.',
+  },
+  [ServiceStatus.PICKING_UP]: {
+    percentage: 40,
+    description: 'The vehicle is in the process of being picked up for service.',
+  },
+  [ServiceStatus.INSPECTING]: {
+    percentage: 60,
+    description: 'The vehicle is being inspected by the mechanic.',
+  },
+  [ServiceStatus.WORKING]: {
+    percentage: 80,
+    description: 'Service work is in progress.',
+  },
+  [ServiceStatus.COMPLETED]: {
+    percentage: 100,
+    description: 'Service has been completed successfully.',
+  },
+};
+
 

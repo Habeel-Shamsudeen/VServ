@@ -12,23 +12,65 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { servicesState, vehiclesState } from "@/recoil/atoms";
+import { ServiceType } from "@/lib/types";
+import { useToast } from "../ui/use-toast";
+import axios from "axios";
+import { useInitializeUserData } from "@/hooks";
 interface ServiceForm {
-  vehicle:string;
-  service:string;
-  date:string;
+  vehicleId: string;
+  service: string;
+  date: string;
   time: string;
   description: string;
 }
 export default function ServiceReq() {
   const [service, setService] = useState<ServiceForm>({
-    vehicle: "",
+    vehicleId: "",
     service: "",
     date: "",
     time: "",
     description: "",
   });
-  const submitHandler = (service:ServiceForm) => {
-    console.log(service);
+  const { toast } = useToast();
+  const vehicles = useRecoilValue(vehiclesState);
+  const setRecoilService = useSetRecoilState(servicesState);
+  const submitHandler =async (service: ServiceForm) => {
+    const { date, time } = service;
+    let schedule;
+    if (date && time) {
+      const scheduledAt = new Date(`${date}T${time}:00`);
+      schedule = scheduledAt
+    }
+    try {
+      const response = await axios.post("http://localhost:3000/api/customer/service",{
+        vehicleId:service.vehicleId,
+        scheduledAt:schedule,
+        serviceType:service.service,
+        description:service.description
+      })
+      if (response.data.status === "success") {
+        toast({
+          title: response.data.msg,
+        });
+        // update service state
+        setRecoilService((c)=>[...c,response.data.service])
+        useInitializeUserData();
+      } else {
+        toast({
+          title: response.data.msg,
+          description: "Please Try Again",
+        });
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+      toast({
+        title: "An error occurred",
+        description: "Please try again",
+        variant: "destructive",
+      });
+    }
   };
   return (
     <div className="border rounded-lg p-4">
@@ -40,12 +82,11 @@ export default function ServiceReq() {
               <div>
                 <Label htmlFor="vehicle">Vehicle</Label>
                 <Select
-                  key="vehicle"
-                  defaultValue="toyota-camry-2019"
+                  required
                   onValueChange={(e) =>
                     setService((c) => ({
                       ...c,
-                      vehicle: e,
+                      vehicleId: e,
                     }))
                   }
                 >
@@ -53,23 +94,18 @@ export default function ServiceReq() {
                     <SelectValue placeholder="Select vehicle" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="toyota-camry-2019">
-                      Toyota Camry 2019
-                    </SelectItem>
-                    <SelectItem value="honda-civic-2021">
-                      Honda Civic 2021
-                    </SelectItem>
-                    <SelectItem value="ford-f150-2020">
-                      Ford F-150 2020
-                    </SelectItem>
+                    {vehicles.map((vehicle) => (
+                      <SelectItem value={vehicle.id+""} key={vehicle.id}>
+                        {vehicle.make} {vehicle.year}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
               <div>
                 <Label htmlFor="service">Service</Label>
                 <Select
-                  key="service"
-                  defaultValue="oil-change"
+                  required
                   onValueChange={(e) =>
                     setService((c) => ({
                       ...c,
@@ -81,14 +117,11 @@ export default function ServiceReq() {
                     <SelectValue placeholder="Select service" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="oil-change">Oil Change</SelectItem>
-                    <SelectItem value="tire-rotation">Tire Rotation</SelectItem>
-                    <SelectItem value="brake-inspection">
-                      Brake Inspection
-                    </SelectItem>
-                    <SelectItem value="engine-tune-up">
-                      Engine Tune-up
-                    </SelectItem>
+                    {Object.values(ServiceType).map((service) => (
+                      <SelectItem key={service} value={service}>
+                        {service.replace("_", " ")}{" "}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -99,7 +132,6 @@ export default function ServiceReq() {
                 <Input
                   type="date"
                   id="date"
-                  defaultValue="2023-06-01"
                   onChange={(e) =>
                     setService((c) => ({
                       ...c,
@@ -113,7 +145,6 @@ export default function ServiceReq() {
                 <Input
                   type="time"
                   id="time"
-                  defaultValue="09:00"
                   onChange={(e) =>
                     setService((c) => ({
                       ...c,
