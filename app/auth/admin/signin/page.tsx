@@ -2,8 +2,15 @@ import SigninForm from "@/components/shared/signin-form";
 import Quote from "@/components/shared/Quote";
 import RepairIcon from "@/components/ui/RepairIcon";
 import Link from "next/link";
+import { getServerSession } from "next-auth";
+import authOptions from "@/lib/auth";
+import { redirect } from "next/navigation";
 
-export default function AdminSignupPage() {
+export default async function AdminSignupPage() {
+  const session =await getServerSession(authOptions);
+  if (session?.user && session.user?.role === "ADMIN") {
+    redirect("/admin");
+  }
   return (
     <div>
       <div className="flex">

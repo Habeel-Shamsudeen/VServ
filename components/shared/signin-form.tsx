@@ -25,14 +25,19 @@ export default function SigninForm({type}:{type:"admin" | "employee" | "customer
       redirect: false,
       email,
       password,
-      role: 'CUSTOMER',
+      role: type.toUpperCase(),
     });
     console.log(result);
     if (result?.ok) {
       toast({
         title:"SignIn Successfull"
       })
-      router.push('/user/'); // Redirect to a protected page after successful sign-in
+      if(type==='admin'){
+        router.push('/admin/');
+      }else{
+        router.push('/user/'); 
+      }
+      // Redirect to a protected page after successful sign-in
     } else {
       toast({
         title:"Invalid Credentials",
