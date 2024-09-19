@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { Customer, Service, Vehicle } from '../../lib/types';
+import { Customer, Mechanic, Service, Vehicle } from '../../lib/types';
 
 
 export const customerState = atom<Customer | null>({
@@ -16,5 +16,10 @@ export const servicesState = atom<Service[]>({
 
 export const vehiclesState = atom<Vehicle[]>({
   key: 'vehiclesState',
+  default: [],
+});
+
+export const adminMechanicsState = atom<Mechanic[]>({
+  key: 'adminMechanicsState',
   default: [],
 });

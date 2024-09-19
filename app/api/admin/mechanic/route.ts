@@ -28,22 +28,41 @@ export async function POST(req: NextRequest) {
         name: mechanic.name,
         email: mechanic.email,
         password: mechanic.password,
-        phoneNumber: mechanic.phno,
+        phoneNumber: mechanic.phoneNumber,
         role: "MECHANIC",
       },
     });
 
     const newMechanic = await prisma.mechanic.create({
-        data: {
-          userId: newMech.id,
+      data: {
+        userId: newMech.id,
+        speciality: mechanic.speciality,
+      },
+    });
+    const mechanics = await prisma.user.findUnique({
+      where: {
+        id:newMech.id,
+        role: "MECHANIC",
+      },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        phoneNumber: true,
+        mechanic: {
+          select: {
+            id: true,
+            services: true,
+            speciality: true,
+          },
         },
-      });
+      },
+    });
     return NextResponse.json(
       {
         msg: "New mechanic added",
         status: "success",
-        Mechanic: newMech,
-        mechId: newMechanic.id
+        mechanic: mechanics
       },
       { status: 200 }
     );
@@ -66,27 +85,27 @@ export async function DELETE(req: NextRequest) {
   try {
     const id = headers().get("id");
     const mechanic = await prisma.user.findFirst({
-        where: {
-          id: parseInt(id || "-1"),
-          role: "MECHANIC",
+      where: {
+        id: parseInt(id || "-1"),
+        role: "MECHANIC",
+      },
+    });
+
+    if (!mechanic) {
+      return NextResponse.json(
+        {
+          msg: "Mechanic not found",
+          status: "failure",
         },
-      });
-  
-      if (!mechanic) {
-        return NextResponse.json(
-          {
-            msg: "Mechanic not found",
-            status: "failure",
-          },
-          { status: 404 }
-        );
-      }
-  
-      await prisma.user.delete({
-        where: {
-          id: parseInt(id || '-1'),
-        },
-      });
+        { status: 404 }
+      );
+    }
+
+    await prisma.user.delete({
+      where: {
+        id: parseInt(id || "-1"),
+      },
+    });
     return NextResponse.json(
       {
         msg: "Mechanic Deleted",
@@ -106,43 +125,44 @@ export async function DELETE(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
-    const session = await getServerSession(authOptions);
-    if (!session || !session.user || session.user.role !== "ADMIN") {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-    }
-    try {
-        const mechanics = await prisma.user.findMany({
-            where: {
-                role: 'MECHANIC',
-              },
-              select: {
-                id: true,
-                email: true,
-                name: true,
-                phoneNumber: true,
-                mechanic: {
-                  select: {
-                    id: true,
-                    services: true,
-                  },
-                },
-              },
-        });
-      return NextResponse.json(
-        {
-          msg: "Mechanic fetched",
-          status: "success",
-          mechanics
-        },
-        { status: 200 }
-      );
-    } catch (error) {
-      console.error("Error fetching Mechanic:", error);
-      return NextResponse.json(
-        {
-          msg: "Internal server error",
-        },
-        { status: 500 }
-      );
-    }
+  const session = await getServerSession(authOptions);
+  if (!session || !session.user || session.user.role !== "ADMIN") {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
+  try {
+    const mechanics = await prisma.user.findMany({
+      where: {
+        role: "MECHANIC",
+      },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        phoneNumber: true,
+        mechanic: {
+          select: {
+            id: true,
+            services: true,
+            speciality: true,
+          },
+        },
+      },
+    });
+    return NextResponse.json(
+      {
+        msg: "Mechanic fetched",
+        status: "success",
+        mechanics,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error fetching Mechanic:", error);
+    return NextResponse.json(
+      {
+        msg: "Internal server error",
+      },
+      { status: 500 }
+    );
+  }
+}

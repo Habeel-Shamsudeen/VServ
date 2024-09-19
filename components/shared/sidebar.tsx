@@ -9,7 +9,7 @@ import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import RepairIcon from "../ui/RepairIcon";
 export default function Sidebar({type}:{type:'user' | 'admin' | 'mechanic'}) {
     const user: string[] = ["home", "history", "service", "vehicle"];
-    const admin: string[] = ["home", "mechanics", "history"];
+    const admin: string[] = ["home", "mechanics", "history","service"];
   let typeArr: string[] = [];
   if (type === "user") typeArr = user;
   if (type === "admin") typeArr = admin;

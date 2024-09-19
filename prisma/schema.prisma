@@ -31,6 +31,7 @@ model Mechanic {
   id         Int       @id @default(autoincrement())
   userId     Int       @unique
   user       User      @relation(fields: [userId], references: [id])
+  speciality ServiceType @default(GENERAL_MAINTENANCE)
   services   Service[]
 }
 

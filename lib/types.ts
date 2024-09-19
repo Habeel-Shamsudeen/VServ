@@ -42,6 +42,7 @@ export interface Mechanic {
   id: number;
   userId: number;
   user: User;
+  speciality: ServiceType;
   services: Service[];
 }
 

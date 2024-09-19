@@ -1,3 +1,4 @@
+import { ServiceType } from '@/lib/types'
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
@@ -73,7 +74,9 @@ async function main() {
       password: 'password123',
       role: 'MECHANIC',
       mechanic: {
-        create: {},
+        create: {
+          speciality:ServiceType.BRAKE_INSPECTION
+        },
       },
     },
   })
@@ -85,7 +88,9 @@ async function main() {
       password: 'password123',
       role: 'MECHANIC',
       mechanic: {
-        create: {},
+        create: {
+          speciality:ServiceType.OIL_CHANGE
+        },
       },
     },
   })
