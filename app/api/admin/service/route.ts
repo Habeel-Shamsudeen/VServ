@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
   
       // Check if the service exists
       const service = await prisma.service.findUnique({
-        where: { id: serviceId },
+        where: { id: parseInt(serviceId) },
       });
   
       if (!service) {
@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
   
       // Check if the mechanic exists
       const mechanic = await prisma.mechanic.findUnique({
-        where: { id: mechanicId },
+        where: { id: parseInt(mechanicId) },
       });
   
       if (!mechanic) {
@@ -77,10 +77,23 @@ export async function POST(req: NextRequest) {
   
       // Update the service with the mechanic
       const updatedService = await prisma.service.update({
-        where: { id: serviceId },
+        where: { id: parseInt(serviceId) },
         data: {
-          mechanicId: mechanicId,
+          mechanicId: parseInt(mechanicId),
           status: 'ASSIGNED',
+        },
+        include: {
+          mechanic: {
+            include: {
+              user: true,
+            },
+          },
+          customer: {
+            include: {
+              user: true,
+            },
+          },
+          vehicle: true,
         },
       });
   

@@ -2,85 +2,73 @@
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Trash2 } from "lucide-react"
-
-type Service = {
-  id: string
-  serviceType: string
-}
-
-type Mechanic = {
-  id: string
-  name: string
-  email: string
-  phoneNumber: string
-  speciality: string
-  assignedService: Service | null
-}
-
-const mechanics: Mechanic[] = [
-  {
-    id: "1",
-    name: "John Doe",
-    email: "john.doe@example.com",
-    phoneNumber: "123-456-7890",
-    speciality: "Engine Repair",
-    assignedService: { id: "S1", serviceType: "Oil Change" },
-  },
-  {
-    id: "2",
-    name: "Jane Smith",
-    email: "jane.smith@example.com",
-    phoneNumber: "098-765-4321",
-    speciality: "Transmission",
-    assignedService: null,
-  },
-  {
-    id: "3",
-    name: "Bob Johnson",
-    email: "bob.johnson@example.com",
-    phoneNumber: "555-123-4567",
-    speciality: "Brakes",
-    assignedService: { id: "S2", serviceType: "Brake Inspection" },
-  },
-]
+import { DeleteButton } from "./ui/delete-button"
+import { useRecoilState } from "recoil"
+import { adminMechanicsState } from "@/recoil/atoms"
+import { useToast } from "./ui/use-toast"
+import axios from "axios"
 
 export function MechanicsCardsComponent() {
-  const handleDelete = (id: string) => {
-    console.log(`Delete mechanic with id: ${id}`)
-    // Implement delete logic here
+  const { toast } = useToast();
+  const [mechanics,setMechanics] = useRecoilState(adminMechanicsState);
+  const handleDelete =async (id: number) => {
+    try {
+      const response = await axios.delete(
+        "http://localhost:3000/api/admin/mechanic",
+        {
+          headers: { id: id },
+        }
+      );
+      if (response.data.status === "success") {
+        toast({
+          title: response.data.msg,
+        });
+        setMechanics((c) => [...c.filter((c) => c.id !== id)]);
+      } else {
+        toast({
+          title: response.data.msg,
+          description: "Please Try Again",
+        });
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+      toast({
+        title: "An error occurred",
+        description: "Please try again",
+        variant: "destructive",
+      });
+    }
+  }
+  if(mechanics.length==0){
+    return <div></div>
   }
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="container mx-auto py-10 border rounded-md">
       <h1 className="text-3xl font-bold mb-6">Mechanics</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {mechanics.map((mechanic) => (
-          <Card key={mechanic.id} className="w-full">
+          <Card key={mechanic.id} className="w-full border hover:bg-muted">
             <CardHeader>
               <CardTitle className="flex justify-between items-center">
                 <span>{mechanic.name}</span>
-                <Button
-                  variant="destructive"
-                  size="icon"
-                  onClick={() => handleDelete(mechanic.id)}
+                <DeleteButton
+                  onDelete={() => handleDelete(mechanic.id)}
                 >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
+                </DeleteButton>
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p><strong>ID:</strong> {mechanic.id}</p>
+              <p><strong>Mechanic ID:</strong> {mechanic.mechanic?.id}</p>
               <p><strong>Email:</strong> {mechanic.email}</p>
               <p><strong>Phone:</strong> {mechanic.phoneNumber}</p>
-              <p><strong>Speciality:</strong> {mechanic.speciality}</p>
+              <p><strong>Speciality:</strong> {mechanic.mechanic?.speciality}</p>
             </CardContent>
             <CardFooter>
               <strong>Assigned Service: </strong>
-              {mechanic.assignedService ? (
+              {mechanic.mechanic?.services?.length!==0 ? (
                 <Badge variant="outline" className="ml-2">
-                  {mechanic.assignedService.id}: {mechanic.assignedService.serviceType}
+                  {mechanic.mechanic?.services[0]?.id}: {mechanic.mechanic?.services[0]?.serviceType}
                 </Badge>
               ) : (
                 <Badge variant="secondary" className="ml-2">Unassigned</Badge>

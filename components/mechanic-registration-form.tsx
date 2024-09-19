@@ -92,8 +92,8 @@ export function MechanicRegistrationForm() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center">
-      <Card className="w-full max-w-4xl shadow-xl bg-white">
+    <div className=" flex justify-center mb-3">
+      <Card className="w-full max-w-4xl shadow-lg bg-white">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl font-bold text-gray-900">
             Register a Mechanic

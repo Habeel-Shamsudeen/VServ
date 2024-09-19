@@ -30,7 +30,7 @@ model Customer {
 model Mechanic {
   id         Int       @id @default(autoincrement())
   userId     Int       @unique
-  user       User      @relation(fields: [userId], references: [id])
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   speciality ServiceType @default(GENERAL_MAINTENANCE)
   services   Service[]
 }

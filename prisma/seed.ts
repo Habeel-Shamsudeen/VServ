@@ -20,6 +20,7 @@ async function main() {
       email: 'customer1@example.com',
       name: 'John Doe',
       password: 'password123', 
+      phoneNumber: '237848324',
       role: 'CUSTOMER',
       customer: {
         create: {
@@ -48,6 +49,7 @@ async function main() {
       email: 'customer2@example.com',
       name: 'Jane Smith',
       password: 'password123',
+      phoneNumber: '9872324324',
       role: 'CUSTOMER',
       customer: {
         create: {
@@ -72,6 +74,7 @@ async function main() {
       email: 'mechanic1@example.com',
       name: 'Bob Mechanic',
       password: 'password123',
+      phoneNumber: '345234123',
       role: 'MECHANIC',
       mechanic: {
         create: {
@@ -86,6 +89,7 @@ async function main() {
       email: 'mechanic2@example.com',
       name: 'Alice Mechanic',
       password: 'password123',
+      phoneNumber: '8072342342',
       role: 'MECHANIC',
       mechanic: {
         create: {
