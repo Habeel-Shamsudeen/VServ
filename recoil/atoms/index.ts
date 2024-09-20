@@ -23,3 +23,8 @@ export const adminMechanicsState = atom<User[]>({
   key: 'adminMechanicsState',
   default: [],
 });
+
+export const mechanicsState = atom<Mechanic | null>({
+  key: 'mechanicsState',
+  default: null,
+})

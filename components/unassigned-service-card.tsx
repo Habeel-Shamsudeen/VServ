@@ -26,6 +26,7 @@ import {
 import { AssignServiceComponent } from "./assign-service";
 import { useRecoilValue } from "recoil";
 import { unassignedServicesSelector } from "@/recoil/selectors";
+import { useInitializeAdminMechanicsData } from "@/hooks";
 
 const formatDate = (dateString: any) => {
   const date = new Date(dateString)
@@ -38,6 +39,7 @@ const formatDate = (dateString: any) => {
 
 
 export function UnassignedServiceCard() {
+  useInitializeAdminMechanicsData();
   const servicesToRender = useRecoilValue(unassignedServicesSelector)
   const [isHovered, setIsHovered] = useState(false);
 

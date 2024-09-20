@@ -15,29 +15,29 @@ import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import { useToast } from "../ui/use-toast";
 import { useResetRecoilState } from 'recoil';
-import { customerState, servicesState, vehiclesState } from "@/recoil/atoms";
+import { adminMechanicsState, customerState, servicesState, vehiclesState } from "@/recoil/atoms";
 
 export default function Appbar({
   type,
+  user
 }: {
   type: "landing" | "user" | "mechanic" | "admin";
+  user: any;
 }) {
 const resetCustomer = useResetRecoilState(customerState);
 const resetServices = useResetRecoilState(servicesState);
 const resetVehicles = useResetRecoilState(vehiclesState);
+const resetAdminMechanics = useResetRecoilState(adminMechanicsState);
   const { toast } = useToast();
   const pathName = usePathname();
   const patharr=pathName.split('/');
-  const {data:session, status} = useSession();
-  let userName = 'User'
-  if(status==='authenticated'){
-    userName = session.user.name?.split(' ')[0];
-  }
+  let userName = user.name? user.name : user.email.split('@')[0]; 
   const handleSignOut = async () =>{
     await signOut({ callbackUrl: '/' });
     resetCustomer();
     resetServices();
     resetVehicles();
+    resetAdminMechanics();
     toast({
       title:"Signed Out successfully"
     })

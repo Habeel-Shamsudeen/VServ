@@ -24,6 +24,7 @@ import axios from 'axios'
 import { Service, User } from '@/lib/types'
 import { useToast } from './ui/use-toast'
 import { unassignMechanicsSelector } from '@/recoil/selectors'
+import { useInitializeAdminMechanicsData } from '@/hooks'
 
 
 export function AssignServiceComponent({serviceId}:{

@@ -2,8 +2,15 @@ import SigninForm from "@/components/shared/signin-form";
 import Quote from "@/components/shared/Quote";
 import RepairIcon from "@/components/ui/RepairIcon";
 import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import authOptions from "@/lib/auth";
 
-export default function MechanicSignupPage() {
+export default async function MechanicSignupPage() {
+  const session =await getServerSession(authOptions);
+  if (session?.user && session.user?.role === "MECHANIC") {
+    redirect("/mechanic");
+  }
   return (
     <div>
       <div className="flex">
@@ -26,7 +33,7 @@ export default function MechanicSignupPage() {
           <Quote />
         </div>
         <div>
-          <SigninForm type="employee"/>
+          <SigninForm type="mechanic"/>
         </div>
       </div>
     </div>

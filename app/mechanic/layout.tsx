@@ -10,15 +10,15 @@ export default async function Layout({
     children: React.ReactNode;
   }>) {
     const session =await getServerSession(authOptions);
-  if (!session?.user || !(session.user?.role === "CUSTOMER")) {
+  if (!session?.user || !(session.user?.role === "MECHANIC")) {
     redirect("/");
   }
     return (
       <>
         <div className="grid grid-cols-1 md:grid-cols-[auto_1fr]">
-            <Sidebar type="user" />
+            <Sidebar type="mechanic" />
             <div>
-                <Appbar type="user" user={session.user}/>
+                <Appbar type="mechanic" user={session.user} />
                 <div className="p-4 grid gap-6 flex-1 overflow-auto md:p-6">
                     {children}
                 </div>

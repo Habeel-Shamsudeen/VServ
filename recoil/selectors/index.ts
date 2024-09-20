@@ -38,9 +38,15 @@ export const onGoingServicesSelector = selector({
 
 
 export const unassignMechanicsSelector = selector({
-  key:'unassignMechanicsSelector',
-  get:({ get }) => {
+  key: 'unassignMechanicsSelector',
+  get: ({ get }) => {
     const mechanics = get(adminMechanicsState);
-    return mechanics.filter(mech => mech.services?.length === 0)
+
+    return mechanics.filter((mech) => {
+      const services = mech.mechanic?.services || [];
+      const isUnassigned =
+        services.length === 0 || services.every(service => service.status === 'COMPLETED');
+      return isUnassigned;
+    });
   }
-})
+});

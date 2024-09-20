@@ -8,7 +8,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useToast } from "../ui/use-toast";
 
-export default function SigninForm({type}:{type:"admin" | "employee" | "customer"}) {
+export default function SigninForm({type}:{type:"admin" | "mechanic" | "customer"}) {
   const { toast } = useToast();
   const [signinInputs, setSigninInputs] = useState({
     email: "",
@@ -34,10 +34,12 @@ export default function SigninForm({type}:{type:"admin" | "employee" | "customer
       })
       if(type==='admin'){
         router.push('/admin/');
-      }else{
+      }else if(type === "mechanic"){
+        router.push('/mechanic/');
+      }
+      else{
         router.push('/user/'); 
       }
-      // Redirect to a protected page after successful sign-in
     } else {
       toast({
         title:"Invalid Credentials",

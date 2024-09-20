@@ -10,9 +10,11 @@ import RepairIcon from "../ui/RepairIcon";
 export default function Sidebar({type}:{type:'user' | 'admin' | 'mechanic'}) {
     const user: string[] = ["home", "history", "service", "vehicle"];
     const admin: string[] = ["home", "mechanics", "history","service"];
+    const mechanic: string[] = ["home","service", "history"];
   let typeArr: string[] = [];
   if (type === "user") typeArr = user;
   if (type === "admin") typeArr = admin;
+  if (type === "mechanic") typeArr = mechanic;
 
 
   return (
