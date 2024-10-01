@@ -19,7 +19,7 @@ export function TotalServicesCard() {
       <CardContent>
         <div className="text-2xl font-bold">{totalServices}</div>
         <p className="text-xs text-muted-foreground">
-          {pendingServices===0? "Waiting service Assignment":pendingServices+"pending"}
+          {pendingServices===0? "Waiting service Assignment":pendingServices+" pending"}
           
         </p>
       </CardContent>

@@ -4,12 +4,13 @@ import { Progress } from "@/components/ui/progress";
 import { activeServicesSelector } from "@/recoil/selectors";
 import { useRecoilValue } from "recoil";
 import { ServiceStatus, serviceStatusDetails } from "@/lib/types"; // Adjust import path as needed
+import { servicesState } from "@/recoil/atoms";
 
-export function StatusCard() {
-  const activeServices = useRecoilValue(activeServicesSelector);
+export function MechanicServiceStatus() {
+  const activeServices = useRecoilValue(servicesState);
   if (activeServices.length === 0) {
     return (
-      <Card className="w-full border rounded-lg h-72 overflow-auto">
+      <Card className="w-full border rounded-lg h-72 overflow-auto shadow-sm">
         <CardHeader className="flex items-center justify-between">
           <CardTitle>Vehicle Service Status</CardTitle>
           <div className="text-sm text-muted-foreground">N/A</div>
@@ -57,14 +58,6 @@ export function StatusCard() {
                   <div className="text-sm font-medium">{service.status}</div>
                 </div>
                 <Progress value={percentage} className="w-full mt-2" />
-                <div className="flex items-center justify-between mt-2">
-                  <div className="text-sm text-muted-foreground">
-                    Estimated Completion
-                  </div>
-                  <div className="text-sm font-medium">
-                    2:45 PM
-                  </div>
-                </div>
                 <div className="text-sm text-muted-foreground mt-2">
                   {description}
                 </div>

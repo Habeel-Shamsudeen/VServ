@@ -56,7 +56,6 @@ export default function ServiceReq() {
         });
         // update service state
         setRecoilService((c)=>[...c,response.data.service])
-        useInitializeUserData();
       } else {
         toast({
           title: response.data.msg,

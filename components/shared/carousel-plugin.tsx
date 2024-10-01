@@ -10,6 +10,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
+import Image from "next/image"
 
 export function CarouselPlugin() {
   const plugin = React.useRef(
@@ -29,7 +30,7 @@ export function CarouselPlugin() {
             <div className="p-1">
               <Card>
                 <CardContent className="flex aspect-square items-center justify-center p-6 bg-muted">
-                <img
+                <Image
                 src={`/repair${index+1}.jpg`}
                 width="550"
                 height="310"

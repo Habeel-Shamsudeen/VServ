@@ -3,6 +3,7 @@ import { useInitializeUserData } from "@/hooks";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { useRecoilValue } from "recoil";
 import { servicesState, vehiclesState } from "@/recoil/atoms";
+import Image from "next/image";
 
 export default function HistoryCard(){
     const { loading } = useInitializeUserData();
@@ -23,7 +24,7 @@ export default function HistoryCard(){
           const vehicleServices = getServicesForVehicle(vehicle.id);
           return (
             <div key={vehicle.id} className="flex items-center gap-4">
-              <img src="/placeholder.svg" width={75} height={75} alt="Vehicle" className="rounded-md" />
+              <Image src="/placeholder.svg" width={75} height={75} alt="Vehicle" className="rounded-md" />
               <div className="grid gap-1">
                 <div className="font-medium">{vehicle.year} {vehicle.make} {vehicle.model}</div>
                 <div className="text-muted-foreground">

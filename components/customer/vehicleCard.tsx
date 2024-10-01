@@ -6,6 +6,7 @@ import { useRecoilState } from "recoil";
 import axios from "axios";
 import { useToast } from "@/components/ui/use-toast";
 import { DeleteButton } from "../ui/delete-button";
+import Image from "next/image";
 
 export default function VehicleCard() {
   const { toast } = useToast();
@@ -24,7 +25,6 @@ export default function VehicleCard() {
           title: response.data.msg,
         });
         setVehicle((c) => [...c.filter((c) => c.id !== vehicleId)]);
-        useInitializeUserData();
       } else {
         toast({
           title: response.data.msg,
@@ -60,7 +60,7 @@ export default function VehicleCard() {
               key={vehicle.id}
             >
               <div className="flex items-center gap-4">
-                <img
+                <Image
                   src="/placeholder.svg"
                   width={75}
                   height={75}

@@ -49,7 +49,7 @@ export function UnassignedServiceCard() {
       {servicesToRender.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {servicesToRender.map((service) => (
-            <TooltipProvider>
+            <TooltipProvider key={service.id}>
               <Card
                 className="w-full max-w-md transition-all duration-300 ease-in-out hover:shadow-lg border"
                 onMouseEnter={() => setIsHovered(true)}

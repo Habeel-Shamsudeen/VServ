@@ -27,7 +27,6 @@ export default function CurrService() {
           title: response.data.msg,
         });
         setService((c) => [...c.filter((c) => c.id !== serviceId)]);
-        useInitializeUserData();
       } else {
         toast({
           title: response.data.msg,
@@ -58,7 +57,7 @@ export default function CurrService() {
             ""
           )}
           {services.map((service) => (
-            <div className="flex justify-between hover:bg-green-100 rounded-md p-2">
+            <div className="flex justify-between hover:bg-green-100 rounded-md p-2" key={service.id}>
               <div className="flex items-center gap-4">
               <div className="bg-primary rounded-md p-3 flex items-center justify-center">
                 <ClipboardListIcon className="h-5 w-5 text-primary-foreground" />

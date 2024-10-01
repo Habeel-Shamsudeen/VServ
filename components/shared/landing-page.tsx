@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CarouselPlugin } from "./carousel-plugin";
+import Image from "next/image";
 
 export function LandingPage() {
   return (
@@ -35,7 +36,7 @@ export function LandingPage() {
                   </Link>
                 </div>
               </div>
-              <img
+              <Image
                 src="/trust2.jpg"
                 width="550"
                 height="550"
@@ -122,7 +123,7 @@ export function LandingPage() {
               <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 Our online scheduling tool makes it easy to find a convenient
                 time for your vehicle service. Select your service, choose a
-                date and time, and we'll take care of the rest.
+                date and time, and we&apos;ll take care of the rest.
               </p>
               <Link
                 href="auth/customer/signin"
@@ -132,7 +133,7 @@ export function LandingPage() {
                 Schedule Now
               </Link>
             </div>
-            <img
+            <Image
               src="/trust.jpg"
               width="550"
               height="310"
@@ -143,7 +144,7 @@ export function LandingPage() {
         </section>
         <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
           <div className="container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
-            <img
+            <Image
               src="/schedule.jpg"
               width="550"
               height="310"
@@ -181,7 +182,7 @@ export function LandingPage() {
                 running at its best.
               </p>
             </div>
-            <img
+            <Image
               src="/satisfaction.jpg"
               width="550"
               height="310"
@@ -201,7 +202,7 @@ export function LandingPage() {
               </h2>
               <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 Have a question or need assistance? Our friendly customer
-                service team is here to help. Contact us today and we'll be
+                service team is here to help. Contact us today and we&apos;ll be
                 happy to assist you.
               </p>
               <Link
@@ -212,7 +213,7 @@ export function LandingPage() {
                 Contact Us
               </Link>
             </div>
-            <img
+            <Image
               src="/team.jpg"
               width="550"
               height="310"

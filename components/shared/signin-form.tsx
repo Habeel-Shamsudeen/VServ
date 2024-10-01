@@ -88,7 +88,7 @@ export default function SigninForm({type}:{type:"admin" | "mechanic" | "customer
       </form>
       {type!=="admin"?(<div className="text-slate-500 text-center">
         
-        Don't have an account?
+        Don&apos;t have an account?
         <Link
           className="pl-1 underline"
           href={'/auth/customer/signup'}

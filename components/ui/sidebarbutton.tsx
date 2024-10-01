@@ -10,10 +10,12 @@ export default function SidebarButton({
   const landing: string[] = ["service", "about", "contact"];
   const user: string[] = ["home", "history", "service", "vehicle"];
   const admin: string[] = ["home", "mechanics", "history","service"];
+  const mechanic: string[] = ["home", "service", "history"];
   let typeArr: string[] = [];
   if (type === "landing") typeArr = landing;
   if (type === "user") typeArr = user;
   if (type === "admin") typeArr = admin;
+  if (type === 'mechanic') typeArr = mechanic;
 
   return (
     <div>

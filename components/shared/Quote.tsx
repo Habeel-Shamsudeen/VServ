@@ -8,8 +8,8 @@ export default function Quote(){
         </div>
         <div>
         <div className="max-w-lg p-2 text-xl font-bold">
-          "The customer service i receiced was exceptional. The support team
-          went adove and beyond to address my concerns."
+        &quot;The customer service i receiced was exceptional. The support team
+          went adove and beyond to address my concerns.&quot;
         </div>
         <div className="max-w-md text-lg text-start font-semibold mt-2">
           John Doe

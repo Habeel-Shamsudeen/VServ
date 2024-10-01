@@ -11,7 +11,7 @@ export function HistoryTable() {
     <Card>
       <CardHeader className="px-7">
         <CardTitle>Service History</CardTitle>
-        <CardDescription>View your vehicle's service records, status, and dates.</CardDescription>
+        <CardDescription>View your vehicle&apos; service records, status, and dates.</CardDescription>
       </CardHeader>
       <CardContent>
         <Table>
