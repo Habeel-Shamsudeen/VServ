@@ -32,7 +32,7 @@ export default function AddVehicleForm() {
         throw new Error('Invalid Model or Make length')
       }
       const response = await axios.post(
-        "http://localhost:3000/api/customer/vehicle",
+        "/api/customer/vehicle",
         {
           vehicle,
         }

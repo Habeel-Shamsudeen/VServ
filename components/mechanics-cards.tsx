@@ -14,7 +14,7 @@ export function MechanicsCardsComponent() {
   const handleDelete =async (id: number) => {
     try {
       const response = await axios.delete(
-        "http://localhost:3000/api/admin/mechanic",
+        "/api/admin/mechanic",
         {
           headers: { id: id },
         }

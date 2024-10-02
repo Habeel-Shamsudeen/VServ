@@ -44,7 +44,7 @@ export default function ServiceReq() {
       schedule = scheduledAt
     }
     try {
-      const response = await axios.post("http://localhost:3000/api/customer/service",{
+      const response = await axios.post("/api/customer/service",{
         vehicleId:service.vehicleId,
         scheduledAt:schedule,
         serviceType:service.service,

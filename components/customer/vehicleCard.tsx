@@ -15,7 +15,7 @@ export default function VehicleCard() {
   const handleDelete = async (vehicleId: number) => {
     try {
       const response = await axios.delete(
-        "http://localhost:3000/api/customer/vehicle",
+        "/api/customer/vehicle",
         {
           headers: { id: vehicleId },
         }

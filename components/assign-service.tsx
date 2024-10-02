@@ -39,7 +39,7 @@ export function AssignServiceComponent({serviceId}:{
   const handleAssign =async (mechanic:User) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/admin/service",
+        "/api/admin/service",
         {
           mechanicId: mechanic.mechanic?.id,
           serviceId : serviceId

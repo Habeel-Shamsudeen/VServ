@@ -40,7 +40,7 @@ export const useInitializeAdminMechanicsData = () => {
   useEffect(() => {
     const fetchMechanicsData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/admin/mechanic'); 
+        const response = await fetch('/api/admin/mechanic'); 
         const data = await response.json();
 
         if (data?.mechanics) {
@@ -65,7 +65,7 @@ export const useInitializeAdminServicesData = () => {
   useEffect(() => {
     const fetchServicesData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/admin/service');
+        const response = await fetch('/api/admin/service');
         const data = await response.json();
 
         if (data?.services) {
@@ -90,7 +90,7 @@ export const useInitializeMechanicData = () => {
   useEffect(() => {
     const fetchMechanicData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/mechanic');
+        const response = await fetch('/api/mechanic');
         const data = await response.json();
 
         if (data?.mechanic) {
@@ -116,7 +116,7 @@ export const useInitializeMechanicServices = () => {
   useEffect(() => {
     const fetchMechanicServices = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/mechanic/services'); // Fetch mechanic services
+        const response = await fetch('/api/mechanic/services'); // Fetch mechanic services
         const data = await response.json();
 
         if (data?.services) {

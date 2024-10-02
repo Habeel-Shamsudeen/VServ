@@ -17,7 +17,7 @@ export default function CurrService() {
   const handleDelete = async (serviceId: number) => {
     try {
       const response = await axios.delete(
-        "http://localhost:3000/api/customer/service",
+        "/api/customer/service",
         {
           headers: { id: serviceId },
         }

@@ -32,7 +32,7 @@ export function MechanicServiceCard({id, initialStatus, vehicle, customerName }:
       schedule = completedAt
     }
     try {
-      const response = await axios.post('http://localhost:3000/api/mechanic/services',{
+      const response = await axios.post('/api/mechanic/services',{
         id,
         status,
         cost:parseFloat(cost) || null,

@@ -22,7 +22,7 @@ export default function CustomerSignupForm() {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/auth/customer/signup",
+        "/api/auth/customer/signup",
         {
           customer,
         }

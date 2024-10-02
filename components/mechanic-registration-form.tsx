@@ -57,7 +57,7 @@ export function MechanicRegistrationForm() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/admin/mechanic",
+        "/api/admin/mechanic",
         {
           mechanic: formData,
         }
