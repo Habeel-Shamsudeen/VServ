@@ -11,12 +11,24 @@ export async function POST(req: NextRequest) {
   }
   const userId = parseInt(session.user.id);
   try {
+    const customer = await prisma.customer.findUnique({
+      where:{
+        userId:userId
+      }
+    })
+    if(!customer){
+      return NextResponse.json({
+        msg: "Customer Id not found",
+        status:'failure'
+      });
+    }
+    const customerId = customer.id
     const service = await req.json();
     const ServiceExist = await prisma.service.findFirst({
         where:{
             vehicleId:parseInt(service.vehicleId),
             description:service.description,
-            customerId:userId
+            customerId:customerId
         }
     })
     if(ServiceExist){
@@ -29,7 +41,7 @@ export async function POST(req: NextRequest) {
         data:{
             vehicleId:parseInt(service.vehicleId),
             description:service.description,
-            customerId:userId,
+            customerId:customerId,
             serviceType:service.serviceType,
             scheduledAt:service.scheduledAt,
         }
@@ -60,11 +72,23 @@ export async function DELETE(req: NextRequest) {
 }
 const userId = parseInt(session.user.id);
 try {
+  const customer = await prisma.customer.findUnique({
+    where:{
+      userId:userId
+    }
+  })
+  if(!customer){
+    return NextResponse.json({
+      msg: "Customer Id not found",
+      status:'failure'
+    });
+  }
+  const customerId = customer.id
   const serviceId  = headers().get('id')
-  const serviceDelete = await prisma.service.delete({
+  await prisma.service.delete({
       where:{
           id:parseInt(serviceId || '-1'),
-          customerId:userId
+          customerId:customerId
       }
   })
   return NextResponse.json(
