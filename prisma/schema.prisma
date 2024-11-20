@@ -55,6 +55,7 @@ model Service {
   mechanicId  Int?
   vehicleId   Int
   cost        Float?
+  paid        Boolean       @default(false)
   serviceType ServiceType
   customer    Customer       @relation(fields: [customerId], references: [id], onDelete: Cascade) // onDelete here
   mechanic    Mechanic?      @relation(fields: [mechanicId], references: [id], onDelete: SetNull)

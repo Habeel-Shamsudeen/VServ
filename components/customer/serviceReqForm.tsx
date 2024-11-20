@@ -71,6 +71,10 @@ export default function ServiceReq() {
       });
     }
   };
+  const getTodayDate = () => {
+    const today = new Date();
+    return today.toISOString().split("T")[0]; // Format: YYYY-MM-DD
+  };
   return (
     <div className="border rounded-lg p-4">
       <h1 className="text-2xl font-bold mb-4">Request New Service</h1>
@@ -131,6 +135,7 @@ export default function ServiceReq() {
                 <Input
                   type="date"
                   id="date"
+                  min={getTodayDate()}
                   onChange={(e) =>
                     setService((c) => ({
                       ...c,

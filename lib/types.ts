@@ -72,6 +72,7 @@ export interface Service {
   vehicle?: Vehicle;
   createdAt: Date;
   updatedAt: Date;
+  paid?:boolean
 }
 
 export enum Role {

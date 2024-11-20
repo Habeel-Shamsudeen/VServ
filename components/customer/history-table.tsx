@@ -3,10 +3,10 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
 import { servicesState } from "@/recoil/atoms"
 import { useRecoilValue } from "recoil"
+import { PaymentFormComponent } from "../payment-form"
 
 export function HistoryTable() {
   const completedServices = useRecoilValue(servicesState);
-
   return (
     <Card>
       <CardHeader className="px-7">
@@ -39,7 +39,7 @@ export function HistoryTable() {
                     {`${service.vehicle?.year} ${service.vehicle?.make} ${service.vehicle?.model}`}
                   </TableCell>
                   <TableCell className="text-right">
-                    {service.cost ? `$${service.cost.toFixed(2)}` : "Not yet fixed"}
+                  {service.cost && !service.paid ? <PaymentFormComponent id={service.id} cost={Number(service.cost.toFixed(2))}/> :service.paid? `$${service.cost.toFixed(2)} paid`:"Not yet fixed"}
                   </TableCell>
                 </TableRow>
               ))

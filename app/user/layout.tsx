@@ -3,6 +3,7 @@ import Sidebar from "@/components/shared/sidebar";
 import { getServerSession, Session } from "next-auth";
 import authOptions from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { useInitializeUserData } from "@/hooks";
 
 export default async function Layout({
     children,
