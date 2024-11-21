@@ -5,6 +5,7 @@ import VehicleCard from "@/components/customer/vehicleCard";
 import { HistoryTable } from "@/components/customer/history-table";
 
 export default function CustomerService() {
+  
   return (
     <div className="grid gap-8 lg:grid-cols-2">
       <div className="flex flex-col gap-5">

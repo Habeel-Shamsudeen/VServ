@@ -13,10 +13,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import z from 'zod'
-import { CreditCard, CheckCircle } from 'lucide-react'
+import { CheckCircle } from 'lucide-react'
 import { useToast } from './ui/use-toast'
-import prisma from '@/db'
-import { title } from 'process'
 import { updatePaymentStatus } from '@/app/actions/customer/service-action'
 
 const cardformSchema = z.object({
@@ -32,8 +30,6 @@ export function PaymentFormComponent({ cost, id }: { cost: number; id: number })
   const [isProcessing, setIsProcessing] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const { toast } = useToast()
-
-  // Track validation errors for each field
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -48,7 +44,6 @@ export function PaymentFormComponent({ cost, id }: { cost: number; id: number })
 
     const safe = cardformSchema.safeParse(cardData)
     if (!safe.success) {
-      // Map Zod errors to specific fields
       const fieldErrors: Record<string, string> = {}
       safe.error.errors.forEach((error) => {
         if (error.path[0]) {
@@ -59,7 +54,7 @@ export function PaymentFormComponent({ cost, id }: { cost: number; id: number })
       return
     }
 
-    setErrors({}) // Clear errors if validation passes
+    setErrors({}) 
     setIsProcessing(true)
     try {
       setTimeout(() => {
@@ -68,10 +63,10 @@ export function PaymentFormComponent({ cost, id }: { cost: number; id: number })
         setTimeout(() => {
           setIsOpen(false)
           setIsSuccess(false)
+          window.location.reload()
         }, 2000)
-      }, 4000)
+      }, 3500)
       const result = await updatePaymentStatus(id)
-      toast({title:"Payment Successful"})
     } catch (err) {
       console.log(err)
       toast({

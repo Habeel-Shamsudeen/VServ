@@ -4,8 +4,11 @@ import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@
 import { servicesState } from "@/recoil/atoms"
 import { useRecoilValue } from "recoil"
 import { PaymentFormComponent } from "../payment-form"
+import { useSession } from "next-auth/react"
 
 export function HistoryTable() {
+  const session = useSession()
+  const role = session.data?.user.role
   const completedServices = useRecoilValue(servicesState);
   return (
     <Card>
@@ -39,8 +42,9 @@ export function HistoryTable() {
                     {`${service.vehicle?.year} ${service.vehicle?.make} ${service.vehicle?.model}`}
                   </TableCell>
                   <TableCell className="text-right">
-                  {service.cost && !service.paid ? <PaymentFormComponent id={service.id} cost={Number(service.cost.toFixed(2))}/> :service.paid? `$${service.cost.toFixed(2)} paid`:"Not yet fixed"}
+                  {service.cost && !service.paid && role==='CUSTOMER' ? <PaymentFormComponent id={service.id} cost={Number(service.cost.toFixed(2))}/> :service.paid? `$${service.cost.toFixed(2)} paid`:service.cost?`$${service.cost.toFixed(2)}`:"Not yet fixed"}
                   </TableCell>
+
                 </TableRow>
               ))
             ) : (
