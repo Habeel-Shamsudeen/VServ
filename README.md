@@ -1,4 +1,4 @@
-# Vehicle Service Management System
+# VServ
 
 This project is a **Vehicle Service Management System** designed for a workshop environment. It supports three types of users: Admin, Mechanic, and Customer. The system is built using **Next.js** and **NextAuth** for authentication, with **Prisma** as the ORM for managing the PostgreSQL database.
 

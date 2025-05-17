@@ -11,7 +11,7 @@ export function AppbarLanding() {
       <div className="flex items-center gap-2">
         <Link href="/#home" className="flex items-center gap-2 " prefetch={false}>
           <RepairIcon className="h-6 w-6" />
-          <span className="text-xl font-bold hidden sm:block">VSMS</span>
+          <span className="text-xl font-bold hidden sm:block">VServ</span>
         </Link>
       </div>
       <nav className="hidden items-center gap-4 md:flex">

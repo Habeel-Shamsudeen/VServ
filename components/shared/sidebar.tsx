@@ -28,7 +28,7 @@ export default function Sidebar({type}:{type:'user' | 'admin' | 'mechanic'}) {
               prefetch={false}
             >
               <RepairIcon className="h-8 w-8" />
-              <span className="text-2xl font-bold hidden sm:block">VSMS</span>
+              <span className="text-2xl font-bold hidden sm:block">VServ</span>
             </Link>
           </div>
           <nav className="flex flex-col gap-3 mt-3">

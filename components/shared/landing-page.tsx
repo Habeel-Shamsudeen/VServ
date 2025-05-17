@@ -176,7 +176,7 @@ export function LandingPage() {
                 Trusted Auto Service for Over 20 Years
               </h2>
               <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                VSMS Auto Service has been providing top-quality auto repair and
+                VServ Auto Service has been providing top-quality auto repair and
                 maintenance services to the community since 2004. Our team of
                 certified technicians is dedicated to keeping your vehicle
                 running at its best.
@@ -254,7 +254,7 @@ export function LandingPage() {
       </main>
       <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
         <p className="text-xs text-muted-foreground">
-          &copy; 2024 VSMS. All rights reserved.
+          &copy; 2024 VServ. All rights reserved.
         </p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
           <Link

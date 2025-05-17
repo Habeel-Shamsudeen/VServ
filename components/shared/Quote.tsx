@@ -15,7 +15,7 @@ export default function Quote(){
           John Doe
         </div>
         <div className="max-w-md text-sm font-light text-slate-500">
-          CEO | VSMS
+          CEO | VServ
         </div>
         </div>
       </div>

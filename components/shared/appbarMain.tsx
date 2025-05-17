@@ -52,7 +52,7 @@ const resetAdminMechanics = useResetRecoilState(adminMechanicsState);
           prefetch={false}
         >
             <RepairIcon/>
-        <span className="text-xl font-semibold hidden sm:block">VSMS</span>
+        <span className="text-xl font-semibold hidden sm:block">VServ</span>
         </Link>
         <div className="items-center gap-2 hidden md:block">
         <Link href={`/${type}`} className="flex items-center gap-2 " prefetch={false}>

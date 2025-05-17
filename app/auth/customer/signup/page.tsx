@@ -20,7 +20,7 @@ export default async function CustomerSignupPage() {
           prefetch={false}
         >
           <RepairIcon className="h-6 w-6" />
-          <span className="text-xl font-bold hidden sm:block">VSMS</span>
+          <span className="text-xl font-bold hidden sm:block">VServ</span>
         </Link>
       </div>
       <div className="md:grid grid-cols-2">

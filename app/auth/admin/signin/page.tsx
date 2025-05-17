@@ -21,7 +21,7 @@ export default async function AdminSignupPage() {
           prefetch={false}
         >
           <RepairIcon className="h-6 w-6" />
-          <span className="text-xl font-bold hidden sm:block">VSMS</span>
+          <span className="text-xl font-bold hidden sm:block">VServ</span>
         </Link>
       </div>
       <div className="flex justify-end gap-2 p-3 w-1/2">
